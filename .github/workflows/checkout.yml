@@ -1,0 +1,16 @@
+name: RD-01 Fork PoC
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+permissions:
+  contents: read
+jobs:
+  determine-ref:
+    runs-on: ubuntu-latest
+    env:
+      TRUSTED_MARKER: LOCAL_ONLY_123
+    steps:
+      - name: Vulnerable Vercel checkout action
+        uses: vercel/repository-dispatch/actions/checkout@v1
+        with:
+          ref: ${{ github.head_ref }}
